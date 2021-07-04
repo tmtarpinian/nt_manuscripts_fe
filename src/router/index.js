@@ -1,12 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
-
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-  },
   {
     path: '/about',
     name: 'About',
@@ -15,6 +8,50 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
+  {path: '/', redirect: '/texts'},
+  {
+    path: '/texts', 
+    name: 'Texts',
+    // const CoachDetail = () => import('./pages/coaches/CoachDetail.vue');
+    component: null
+  },
+  {
+    path: '/texts/:id', 
+    name: "Text",
+    component: null
+  },
+  {
+    path: '/references', 
+    name: 'References',
+    component: null
+  },
+  {
+    path: '/references/:id', 
+    name: 'Reference',
+    component: null, 
+    children :[
+      {
+        path: '/texts/:id', 
+        name: 'Text',
+        component: null
+      },
+    ]
+  },
+  {
+    path: '/worksheets/', 
+    name: 'Worksheets',
+    component: null
+  },
+  {
+    path: '/worksheets/:id', 
+    name: 'Name',
+    component: null
+  },
+  {
+    path: '/:notFound(.*)', 
+    name: 'Not Found',
+    component: null
+  }
 ];
 
 const router = createRouter({
