@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   {
     path: '/about',
-    name: 'About',
+    name: 'about',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -12,49 +12,49 @@ const routes = [
   { path: '/', redirect: '/texts' },
   {
     path: '/texts',
-    name: 'Texts',
+    name: 'texts',
     component: () => import(/* webpackChunkName: "texts" */ '../views/Texts.vue'),
   },
   {
     path: '/texts/:id',
-    name: 'Text',
+    name: 'text',
     component: () => import(/* webpackChunkName: "text" */ '../views/Text.vue'),
   },
   {
     path: '/references',
-    name: 'References',
+    name: 'references',
     component: () => import(/* webpackChunkName: "references" */ '../views/References.vue'),
   },
   {
     path: '/references/:id',
-    name: 'Reference',
+    name: 'reference',
     component: () => import(/* webpackChunkName: "reference" */ '../views/Reference.vue'),
     children: [
       {
-        path: '/texts',
-        name: 'Nested Texts',
+        path: 'texts',
+        name: 'nested-texts',
         component: () => import(/* webpackChunkName: "text" */ '../views/Texts.vue'),
       },
       {
-        path: '/texts/:id',
-        name: 'Nested Text',
+        path: 'texts/:id',
+        name: 'nested-text',
         component: () => import(/* webpackChunkName: "text" */ '../views/Text.vue'),
       },
     ],
   },
   {
     path: '/worksheets/',
-    name: 'Worksheets',
+    name: 'worksheets',
     component: null,
   },
   {
     path: '/worksheets/:id',
-    name: 'Name',
+    name: 'name',
     component: null,
   },
   {
     path: '/:notFound(.*)',
-    name: 'Not Found',
+    name: 'not-found',
     component: () => import(/* webpackChunkName: "not found" */ '../views/NotFound.vue'),
   },
 ];
