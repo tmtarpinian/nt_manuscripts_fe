@@ -1,12 +1,10 @@
 import { createStore } from 'vuex';
+import referencesModule from './modules/references';
 
-export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+const store = createStore({
   modules: {
+    references: referencesModule,
+    // texts: textsModule,
   },
 });
+export default store;
