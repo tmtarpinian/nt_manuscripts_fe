@@ -1,9 +1,6 @@
 <template>
     <div>
-        <h1>References</h1>
-      <form>
-        Add search fields here:
-      </form>
+        <reference-filter @reference-request="referenceRequest"></reference-filter>
         <reference
         ></reference>
     </div>
@@ -12,13 +9,19 @@
 <script>
 // import ReferenceCards from '../components/ReferenceCards.vue';
 import Reference from './Reference.vue';
+import ReferenceFilter from '../components/ReferenceFilter.vue';
 
 export default {
-  components: { Reference },
+  components: { Reference, ReferenceFilter },
   computed: {
     referenceData() {
       return this.$store.getters['references/references'];
     },
   },
+  methods:{
+    referenceRequest(data){
+      
+    }
+  }
 };
 </script>

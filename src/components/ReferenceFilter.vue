@@ -1,0 +1,93 @@
+<template>
+<div>
+    <base-card>
+    <section>
+        <h2> Select a Reference </h2>
+    </section>
+    <form @submit.prevent="submitForm">
+        <div>
+            <label for="book">Book</label>
+            <input type="text" id="book" v-model.trim="book"/>
+        </div>
+           <div>
+            <label for="chapter">Chapter</label>
+            <input type="number" id="chapter" v-model.number="chapter"/>
+        </div>
+           <div>
+            <label for="verse">Verse</label>
+            <input type="number" id="verse" v-model.number="verse"/>
+        </div>
+        <button> Submit </button>
+    </form>
+    </base-card>
+    </div>
+</template>
+
+<script>
+
+export default {
+    emits: ['reference-request'],
+  data() {
+    return {
+      book: '',
+      chapter: '',
+      verse: '',
+    };
+  },
+  methods: {
+    submitForm() {
+      const formData = {
+        book: this.book,
+        chapter: this.chapter,
+        verse: this.verse,
+      };
+    this.$emit('reference-request', formDate)
+    },
+  },
+};
+</script>
+
+<style scoped>
+    .form-control {
+  margin: 0.5rem 0;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input[type='checkbox'] + label {
+  font-weight: normal;
+  display: inline;
+  margin: 0 0 0 0.5rem;
+}
+
+input {
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  font: inherit;
+}
+
+input:focus {
+  background-color: #f0e6fd;
+  outline: none;
+  border-color: #3d008d;
+}
+
+h3 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.invalid label {
+  color: red;
+}
+
+.invalid input,
+.invalid textarea {
+  border: 1px solid red;
+}
+</style>
