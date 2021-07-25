@@ -1,24 +1,22 @@
 <template>
     <div>
         <h1>References</h1>
-        <ul>
-            <reference-cards v-for="reference in referenceList" :key="reference.id"
-              :book="reference.book"
-              :chapter="reference.chapter"
-              :verse="reference.verse"
-            >
-            </reference-cards>
-        </ul>
+      <form>
+        Add search fields here:
+      </form>
+        <reference
+        ></reference>
     </div>
 </template>
 
 <script>
-import ReferenceCards from '../components/ReferenceCards.vue';
+// import ReferenceCards from '../components/ReferenceCards.vue';
+import Reference from './Reference.vue';
 
 export default {
-  components: { ReferenceCards },
+  components: { Reference },
   computed: {
-    referenceList() {
+    referenceData() {
       return this.$store.getters['references/references'];
     },
   },
