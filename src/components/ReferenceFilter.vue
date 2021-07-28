@@ -7,21 +7,36 @@
     <form @submit.prevent="submitForm">
         <div>
             <label for="book">Book</label>
-            <select v-model="selected">
+            <select v-model="book">
             <option disabled value="">Please Select a Book </option>
             <option v-for="book in books" :key="book" :value="book">{{book}}</option>
             </select>
-            <input type="text" id="book" v-model.trim="book"/>
         </div>
            <div>
             <label for="chapter">Chapter</label>
-            <input type="number" id="chapter" v-model.number="chapter"/>
+            <select v-model="chapter">
+               <option disabled value="">Please Select a Chapter </option>
+            <option v-for="chapter in chapters"
+            :disabled="!book"
+            :key="chapter"
+            :value="chapter"
+            >{{chapter}}
+            </option>
+            </select>
         </div>
            <div>
             <label for="verse">Verse</label>
-            <input type="number" id="verse" v-model.number="verse"/>
+           <select v-model="verse">
+            <option disabled value="">Please Select a Verse </option>
+            <option v-for="verse in verses"
+            :disabled="!book || !chapter"
+            :key="verse"
+            :value="verse"
+            >{{verse}}
+            </option>
+            </select>
         </div>
-        <button> Submit </button>
+        <button :disabled="!book || !chapter || !verse"> Submit </button>
     </form>
     </base-card>
     </div>
@@ -38,6 +53,8 @@ export default {
       chapter: '',
       verse: '',
       books: CONSTANTS.BOOKS,
+      chapters: CONSTANTS.CHAPTERS,
+      verses: CONSTANTS.VERSES,
     };
   },
   methods: {

@@ -27,6 +27,14 @@ const BOOKS = [
   'Revelation',
 ];
 
+const CHAPTERS = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+];
+
+const VERSES = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+];
+
 export default {
-  BOOKS,
+  BOOKS, CHAPTERS, VERSES,
 };
