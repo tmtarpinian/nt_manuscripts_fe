@@ -7,6 +7,10 @@
     <form @submit.prevent="submitForm">
         <div>
             <label for="book">Book</label>
+            <select v-model="selected">
+            <option disabled value="">Please Select a Book </option>
+            <option v-for="book in books" :key="book" :value="book">{{book}}</option>
+            </select>
             <input type="text" id="book" v-model.trim="book"/>
         </div>
            <div>
@@ -24,6 +28,7 @@
 </template>
 
 <script>
+import CONSTANTS from '../modules/config';
 
 export default {
   emits: ['reference-request'],
@@ -32,6 +37,7 @@ export default {
       book: '',
       chapter: '',
       verse: '',
+      books: CONSTANTS.BOOKS,
     };
   },
   methods: {
