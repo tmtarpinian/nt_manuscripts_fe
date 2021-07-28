@@ -1,7 +1,7 @@
 <template>
     <div>
         <reference-filter @reference-request="referenceRequest"></reference-filter>
-        <reference
+        <reference v-if="currentReference"
         ></reference>
     </div>
 </template>
@@ -17,11 +17,16 @@ export default {
     referenceData() {
       return this.$store.getters['references/references'];
     },
+    currentReference() {
+      return this.$store.getters['references/getCurrentReferenceId'] !== undefined;
+    },
   },
-  methods:{
-    referenceRequest(data){
-      
-    }
-  }
+  methods: {
+    referenceRequest(data) {
+      this.$store.dispatch('references/loadReference', data);
+      // this.$store.dispatch('references/findReference', data);
+      // this.$router.replace(`/references/${this.currentId}`)
+    },
+  },
 };
 </script>

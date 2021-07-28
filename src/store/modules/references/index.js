@@ -6,7 +6,8 @@ export default {
   namespaced: true,
   state() {
     return {
-      references: // [
+      currentReference: undefined,
+      references: [
         {
           id: 3971,
           book: 'acts-of-the-apostles',
@@ -85,7 +86,7 @@ export default {
       //   chapter: 3,
       //   verse: 17,
       // },
-      // ],
+      ],
     };
   },
   mutations,

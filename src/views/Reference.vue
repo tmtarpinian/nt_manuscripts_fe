@@ -17,34 +17,35 @@
                 <td>{{this.getOtherPapyri()}}</td>
             </tr>
             <tr>
-                 <td>Uncials</td>
-                   <td>{{this.getAlexandrianUncials()}}</td>
+                <td>Uncials</td>
+                <td>{{this.getAlexandrianUncials()}}</td>
                 <td>{{this.getByzantineUncials()}}</td>
                 <td>{{this.getWesternUncials()}}</td>
                 <td>{{this.getOtherUncials()}}</td>
             </tr>
              <tr>
-                 <td>Minuscules</td>
-                   <td>{{this.getAlexandrianMinuscules()}}</td>
+                <td>Minuscules</td>
+                <td>{{this.getAlexandrianMinuscules()}}</td>
                 <td>{{this.getByzantineMinuscules()}}</td>
                 <td>{{this.getWesternMinuscules()}}</td>
                 <td>{{this.getOtherMinuscules()}}</td>
             </tr>
              <tr>
-                 <td>Lectionaries</td>
-                  <td>{{this.getAlexandrianLectionaries()}}</td>
+                <td>Lectionaries</td>
+                <td>{{this.getAlexandrianLectionaries()}}</td>
                 <td>{{this.getByzantineLectionaries()}}</td>
                 <td>{{this.getWesternLectionaries()}}</td>
                 <td>{{this.getOtherLectionaries()}}</td>
             </tr>
-             <tr> <td>Verssion</td>
-                 <td>{{this.getAlexandrianVersions()}}</td>
+             <tr>
+                <td>Versions</td>
+                <td>{{this.getAlexandrianVersions()}}</td>
                 <td>{{this.getByzantineVersions()}}</td>
                 <td>{{this.getWesternVersions()}}</td>
                 <td>{{this.getOtherVersions()}}</td>
             </tr>
              <tr>
-                  <td>Fathers</td>
+                <td>Fathers</td>
                 <td>{{this.getAlexandrianFathers()}}</td>
                 <td>{{this.getByzantineFathers()}}</td>
                 <td>{{this.getWesternFathers()}}</td>
@@ -67,7 +68,7 @@ export default {
   },
   computed: {
     referenceData() {
-      return this.$store.getters['references/references'];
+      return this.$store.getters['references/reference'];
     },
   },
   methods: {

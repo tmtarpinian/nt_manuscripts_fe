@@ -26,7 +26,7 @@
 <script>
 
 export default {
-    emits: ['reference-request'],
+  emits: ['reference-request'],
   data() {
     return {
       book: '',
@@ -41,7 +41,7 @@ export default {
         chapter: this.chapter,
         verse: this.verse,
       };
-    this.$emit('reference-request', formDate)
+      this.$emit('reference-request', formData);
     },
   },
 };
