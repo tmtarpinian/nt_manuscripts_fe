@@ -1,28 +1,31 @@
 <template>
     <div>
-        <h1>References</h1>
-        <ul>
-          <reference-details
-            v-for="reference in referenceList"
-            :key="reference.id"
-            :book="reference.book"
-            :chapter="reference.chapter"
-            :verse="reference.verse"
-          ></reference-details>
-        </ul>
+        <reference-filter @reference-request="referenceRequest"></reference-filter>
+        <reference v-if="currentReference"
+        ></reference>
     </div>
 </template>
 
 <script>
-import ReferenceDetails from '../components/ReferenceDetails.vue';
+// import ReferenceCards from '../components/ReferenceCards.vue';
+import Reference from './Reference.vue';
+import ReferenceFilter from '../components/ReferenceFilter.vue';
 
 export default {
-  components: {
-    ReferenceDetails,
-  },
+  components: { Reference, ReferenceFilter },
   computed: {
-    referenceList() {
+    referenceData() {
       return this.$store.getters['references/references'];
+    },
+    currentReference() {
+      return this.$store.getters['references/getCurrentReferenceId'] !== undefined;
+    },
+  },
+  methods: {
+    referenceRequest(data) {
+      this.$store.dispatch('references/loadReference', data);
+      // this.$store.dispatch('references/findReference', data);
+      // this.$router.replace(`/references/${this.currentId}`)
     },
   },
 };
