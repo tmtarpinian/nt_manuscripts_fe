@@ -7,23 +7,46 @@
     <form @submit.prevent="submitForm">
         <div>
             <label for="book">Book</label>
-            <input type="text" id="book" v-model.trim="book"/>
+            <select v-model="book">
+            <option disabled value="">Please Select a Book </option>
+            <option v-for="reference in books"
+            :key="reference"
+            :value="reference"
+            >{{capitalizeAndSplit(reference)}}</option>
+            </select>
         </div>
-           <div>
+        <div>
             <label for="chapter">Chapter</label>
-            <input type="number" id="chapter" v-model.number="chapter"/>
+            <select v-model="chapter">
+            <option disabled value="">Please Select a Chapter </option>
+            <option v-for="chapter in chapters"
+                :disabled="!book"
+                :key="chapter"
+                :value="chapter"
+            >{{chapter}}
+            </option>
+            </select>
         </div>
            <div>
             <label for="verse">Verse</label>
-            <input type="number" id="verse" v-model.number="verse"/>
+           <select v-model="verse">
+            <option disabled value="">Please Select a Verse </option>
+            <option v-for="verse in verses"
+            :disabled="!book || !chapter"
+            :key="verse"
+            :value="verse"
+            >{{verse}}
+            </option>
+            </select>
         </div>
-        <button> Submit </button>
+        <button :disabled="!book || !chapter || !verse"> Submit </button>
     </form>
     </base-card>
     </div>
 </template>
 
 <script>
+import CONSTANTS from '../modules/references';
 
 export default {
   emits: ['reference-request'],
@@ -32,9 +55,23 @@ export default {
       book: '',
       chapter: '',
       verse: '',
+      books: Object.keys(CONSTANTS.REFERENCES),
+      chapters: '',
+      verses: '',
     };
   },
+  watch: {
+    book(newBook) {
+      this.chapters = Object.keys(CONSTANTS.REFERENCES[newBook]);
+    },
+    chapter(newChapter) {
+      this.verses = CONSTANTS.REFERENCES[this.book][newChapter];
+    },
+  },
   methods: {
+    capitalizeAndSplit(book) {
+      return book.split('-').map((word) => word.charAt(0).toUpperCase() + word.split('').splice(1).join('')).join(' ');
+    },
     submitForm() {
       const formData = {
         book: this.book,
