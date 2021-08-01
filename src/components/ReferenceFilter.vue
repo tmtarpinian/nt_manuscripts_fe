@@ -56,7 +56,7 @@ export default {
       chapter: '',
       verse: '',
       books: Object.keys(CONSTANTS.REFERENCES),
-      chapters: '', // this.book !== '' ? this.updateChapters : '',
+      chapters: '',
       verses: '',
     };
   },
@@ -70,10 +70,7 @@ export default {
   },
   methods: {
     capitalizeAndSplit(book) {
-    //   debugger;
-      //   if (book.includes('-')) {
       return book.split('-').map((word) => word.charAt(0).toUpperCase() + word.split('').splice(1).join('')).join(' ');
-      //   }
     },
     submitForm() {
       const formData = {
