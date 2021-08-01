@@ -9,17 +9,20 @@
             <label for="book">Book</label>
             <select v-model="book">
             <option disabled value="">Please Select a Book </option>
-            <option v-for="book in books" :key="book" :value="book">{{book}}</option>
+            <option v-for="reference in books"
+            :key="reference"
+            :value="reference"
+            >{{capitalizeAndSplit(reference)}}</option>
             </select>
         </div>
-           <div>
+        <div>
             <label for="chapter">Chapter</label>
             <select v-model="chapter">
-               <option disabled value="">Please Select a Chapter </option>
+            <option disabled value="">Please Select a Chapter </option>
             <option v-for="chapter in chapters"
-            :disabled="!book"
-            :key="chapter"
-            :value="chapter"
+                :disabled="!book"
+                :key="chapter"
+                :value="chapter"
             >{{chapter}}
             </option>
             </select>
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-import CONSTANTS from '../modules/config';
+import CONSTANTS from '../modules/references';
 
 export default {
   emits: ['reference-request'],
@@ -52,12 +55,26 @@ export default {
       book: '',
       chapter: '',
       verse: '',
-      books: CONSTANTS.BOOKS,
-      chapters: CONSTANTS.CHAPTERS,
-      verses: CONSTANTS.VERSES,
+      books: Object.keys(CONSTANTS.REFERENCES),
+      chapters: '', // this.book !== '' ? this.updateChapters : '',
+      verses: '',
     };
   },
+  watch: {
+    book(newBook) {
+      this.chapters = Object.keys(CONSTANTS.REFERENCES[newBook]);
+    },
+    chapter(newChapter) {
+      this.verses = CONSTANTS.REFERENCES[this.book][newChapter];
+    },
+  },
   methods: {
+    capitalizeAndSplit(book) {
+    //   debugger;
+      //   if (book.includes('-')) {
+      return book.split('-').map((word) => word.charAt(0).toUpperCase() + word.split('').splice(1).join('')).join(' ');
+      //   }
+    },
     submitForm() {
       const formData = {
         book: this.book,
