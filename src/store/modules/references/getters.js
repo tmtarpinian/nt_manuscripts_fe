@@ -1,13 +1,13 @@
 export default {
   references(state) {
-    return state.references;
+    return state.referencesList;
   },
   reference(state, getters) {
     const id = getters.getCurrentReferenceId;
-    return state.references.find((reference) => reference.id === id);
+    return state.referencesList.find((reference) => reference.id === id);
   },
   hasTexts(state) {
-    return state.references && state.references.length > 0;
+    return state.referencesList && state.referencesList.length > 0;
   },
   getCurrentReferenceId(state) {
     return state.currentReference;

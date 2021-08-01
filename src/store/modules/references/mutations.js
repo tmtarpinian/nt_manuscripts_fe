@@ -1,9 +1,12 @@
 export default {
   findReference(state, payload) {
-    state.references.push(payload);
+    state.referencesList.push(payload);
     state.currentReference = payload.id;
   },
   fetchReference(state, payload) {
-    state.references.push(payload);
+    state.referencesList.push(payload);
+  },
+  setCurrentReference(state, payload) {
+    state.currentReference = payload;
   },
 };
