@@ -124,6 +124,33 @@ h3 {
   font-size: 1rem;
 }
 
+select{
+    text-align: center;
+    padding: 10px ;
+    border-radius: 13px;
+    background-color: #f1f1f1;
+    font: #000000
+}
+
+select:hover {
+  background-color: #f1f1f1;
+  opacity: 0.8;
+}
+
+button {
+    background-color: #9055a2;
+    color: #ffffff;
+    border-radius: 25px;
+    padding: .50rem;
+    margin-top: 1.25rem
+}
+
+button:hover {
+    background-color: #9055a2;
+    opacity: 0.8;
+    color: #ffffff;
+}
+
 .invalid label {
   color: red;
 }
