@@ -15,19 +15,21 @@
             >{{capitalizeAndSplit(reference)}}</option>
             </select>
         </div>
-        <div>
-            <label for="chapter">Chapter</label>
-            <select v-model="chapter">
-            <option disabled value="">Please Select a Chapter </option>
-            <option v-for="chapter in chapters"
-                :disabled="!book"
-                :key="chapter"
-                :value="chapter"
-            >{{chapter}}
-            </option>
-            </select>
-        </div>
-           <div>
+        <transition name="slide">
+            <div v-if="book">
+                <label for="chapter">Chapter</label>
+                <select v-model="chapter">
+                <option disabled value="">Please Select a Chapter </option>
+                <option v-for="chapter in chapters"
+                    :disabled="!book"
+                    :key="chapter"
+                    :value="chapter"
+                >{{chapter}}
+                </option>
+                </select>
+            </div>
+        </transition>
+        <div v-if="chapter">
             <label for="verse">Verse</label>
            <select v-model="verse">
             <option disabled value="">Please Select a Verse </option>
@@ -63,9 +65,12 @@ export default {
   watch: {
     book(newBook) {
       this.chapters = Object.keys(CONSTANTS.REFERENCES[newBook]);
+      this.chapter = '';
+      this.verse = '';
     },
     chapter(newChapter) {
       this.verses = CONSTANTS.REFERENCES[this.book][newChapter];
+      this.verse = '';
     },
   },
   methods: {
@@ -126,5 +131,12 @@ h3 {
 .invalid input,
 .invalid textarea {
   border: 1px solid red;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
