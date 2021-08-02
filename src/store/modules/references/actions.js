@@ -26,9 +26,11 @@ export default {
     fetch(`http://localhost:3000/api/v1/reference/?book=${payload.book.toLowerCase()}&chapter=${payload.chapter}&verse=${payload.verse}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        console.log(result);
         context.commit('findReference', JSON.parse(result));
       })
       .catch((error) => console.log('error', error));
+  },
+  setCurrentReference(context, id) {
+    context.commit('setCurrentReference', id);
   },
 };
