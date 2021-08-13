@@ -89,19 +89,19 @@ export default {
       return filteredText.length > 0 ? filteredText.map((text) => `${text.number} (${text.date})`).join(', ') : 'N/A';
     },
     getAlexandrianUncials() {
-      const filteredText = this.referenceData.texts.filter((text) => text.group === 'uncials' && text.text_type === 'Alexandrian');
+      const filteredText = this.referenceData.texts.filter((text) => text.group === 'uncial' && text.text_type === 'Alexandrian');
       return filteredText.length > 0 ? filteredText.map((text) => `${text.number} (${text.date})`).join(', ') : 'N/A';
     },
     getByzantineUncials() {
-      const filteredText = this.referenceData.texts.filter((text) => text.group === 'uncials' && text.text_type === 'Byzantine');
+      const filteredText = this.referenceData.texts.filter((text) => text.group === 'uncial' && text.text_type === 'Byzantine');
       return filteredText.length > 0 ? filteredText.map((text) => `${text.number} (${text.date})`).join(', ') : 'N/A';
     },
     getWesternUncials() {
-      const filteredText = this.referenceData.texts.filter((text) => text.group === 'uncials' && text.text_type === 'Western');
+      const filteredText = this.referenceData.texts.filter((text) => text.group === 'uncial' && text.text_type === 'Western');
       return filteredText.length > 0 ? filteredText.map((text) => `${text.number} (${text.date})`).join(', ') : 'N/A';
     },
     getOtherUncials() {
-      const filteredText = this.referenceData.texts.filter((text) => text.group === 'uncials' && text.text_type === 'Other');
+      const filteredText = this.referenceData.texts.filter((text) => text.group === 'uncial' && text.text_type === 'Other');
       return filteredText.length > 0 ? filteredText.map((text) => `${text.number} (${text.date})`).join(', ') : 'N/A';
     },
     getAlexandrianMinuscules() {
