@@ -6,6 +6,19 @@
                 :socialMediaPlatform="socialLink"
                 />
         </ul>
+        <nav>
+            <ul>
+                <li class="icon-home">
+                    <router-link to='/'>Home</router-link>
+                </li>
+                <li class="icon-user">
+                    <router-link to='/texts'>Texts</router-link>
+                </li>
+                <li class="icon-thumbs-up-alt">
+                    <router-link to='/references'>References</router-link>
+                </li>
+            </ul>
+        </nav>
     </footer>
 </template>
 

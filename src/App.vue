@@ -1,7 +1,7 @@
 <template>
-  <the-header></the-header>
-  <router-view></router-view>
-  <the-footer></the-footer>
+  <the-header id="header"></the-header>
+  <router-view class="main-content"></router-view>
+  <the-footer id=footer></the-footer>
 </template>
 
 <script>
@@ -28,6 +28,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: grid;
+  grid-template-rows: 5 85 10;
 }
 
 #nav {
@@ -42,8 +44,20 @@ export default {
     }
   }
 }
+#header{
+  grid-row-start: 1;
+}
+
+#footer{
+  grid-row-start: 3;
+  background: #42b983;
+}
+.main-content{
+  grid-row-start: 2;
+}
 
 body {
-  margin: 0
+  margin: 0;
+  display: grid;
 }
 </style>

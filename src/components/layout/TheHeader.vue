@@ -35,7 +35,12 @@ h1{
 }
 h1 span{font-weight:500;}
 
-header{width:100%; display:table; background-color:#9055a2; margin-bottom:50px;}
+header{
+    width:100%;
+    display:table;
+    background-color:#9055a2;
+    margin-bottom:50px;
+    }
 #logo{
     float:left;
     font-size:24px;
