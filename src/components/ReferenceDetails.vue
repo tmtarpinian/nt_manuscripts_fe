@@ -1,6 +1,6 @@
 <template>
     <li>
-        {{ book }} {{ chapter }}:{{verse }}
+        {{ book }} {{ chapter }}:{{verse }}: {{verse}}
     </li>
 </template>
 

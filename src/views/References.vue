@@ -1,18 +1,18 @@
 <template>
     <div>
         <reference-filter @reference-request="referenceRequest"></reference-filter>
-        <reference v-if="currentReference"
-        ></reference>
+        <reference v-if="currentReference"/>
     </div>
 </template>
 
 <script>
-// import ReferenceCards from '../components/ReferenceCards.vue';
-import Reference from './Reference.vue';
 import ReferenceFilter from '../components/ReferenceFilter.vue';
+import Reference from './Reference.vue';
 
 export default {
-  components: { Reference, ReferenceFilter },
+  components: {
+    ReferenceFilter, Reference,
+  },
   computed: {
     referenceData() {
       return this.$store.getters['references/referencesList'];
