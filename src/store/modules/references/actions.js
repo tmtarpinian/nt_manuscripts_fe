@@ -24,12 +24,13 @@ export default {
     context.commit('setCurrentReference', id);
   },
   loadReferenceById(context, id) {
+    debugger;
     const requestOptions = {
       method: 'GET',
       redirect: 'follow',
     };
 
-    fetch(`http://localhost:3000/api/v1/reference/${id}`, requestOptions)
+    fetch(`http://localhost:3000/api/v1/reference/?id=${id}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
         context.commit('findReference', JSON.parse(result));
