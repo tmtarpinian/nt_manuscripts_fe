@@ -11,6 +11,7 @@
 
 export default {
   props: ['book', 'chapter', 'verse'],
+  emits: ['reference-request'],
   methods: {
     titelize(name) {
       return name.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
