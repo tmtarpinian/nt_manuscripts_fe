@@ -32,16 +32,6 @@ export default {
       }
       return this.$store.dispatch('references/loadReference', data);
     },
-    requestReferenceById(id) {
-      // if (this.$store.getters['references/getCurrentReferenceId'] === undefined) {
-      //   return this.$store.dispatch('references/loadReference', id);
-      // }
-      const newReference = this.$store.getters['references/references'].find((reference) => reference.id === id);
-      if (newReference !== undefined) {
-        return this.$store.dispatch('references/setCurrentReference', newReference.id);
-      }
-      return this.$store.dispatch('references/loadReferenceById', id);
-    },
   },
 };
 </script>
