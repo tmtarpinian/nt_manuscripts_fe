@@ -5,7 +5,9 @@
           :chapter="referenceData.chapter"
           :verse="referenceData.verse"
         />
-        <all-reference-texts v-if="currentReference"/>
+        <all-reference-texts v-if="currentReference"
+          :referenceId="currentReferenceId"
+        />
     </div>
 </template>
 
@@ -16,6 +18,11 @@ import AllReferenceTexts from '../components/references/AllReferenceTexts.vue';
 export default {
   components: {
     ReferenceCardHeader, AllReferenceTexts,
+  },
+  data() {
+    return {
+      currentReferenceId: this.$store.getters['references/getCurrentReferenceId'],
+    };
   },
   computed: {
     currentReference() {

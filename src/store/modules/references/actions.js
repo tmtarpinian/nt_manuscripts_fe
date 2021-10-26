@@ -24,7 +24,6 @@ export default {
     context.commit('setCurrentReference', id);
   },
   loadReferenceById(context, id) {
-    debugger;
     const requestOptions = {
       method: 'GET',
       redirect: 'follow',
