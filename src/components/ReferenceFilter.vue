@@ -83,7 +83,17 @@ export default {
         chapter: this.chapter,
         verse: this.verse,
       };
-      this.$emit('reference-request', formData);
+      this.referenceRequest(formData);
+    },
+    referenceRequest(data) {
+      if (this.$store.getters['references/getCurrentReferenceId'] === undefined) {
+        return this.$store.dispatch('references/loadReference', data);
+      }
+      const newReference = this.$store.getters['references/references'].find((reference) => reference.book === data.book && reference.chapter === parseInt(data.chapter, 10) && reference.verse === parseInt(data.verse, 10));
+      if (newReference !== undefined) {
+        return this.$store.dispatch('references/setCurrentReference', newReference.id);
+      }
+      return this.$store.dispatch('references/loadReference', data);
     },
   },
 };

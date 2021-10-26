@@ -1,10 +1,6 @@
 <template>
     <div>
-        <reference-card-header v-if="currentReference"
-          :book="referenceData.book"
-          :chapter="referenceData.chapter"
-          :verse="referenceData.verse"
-        />
+        <reference-card-header v-if="currentReference"/>
         <all-reference-texts v-if="currentReference"/>
     </div>
 </template>
@@ -20,9 +16,6 @@ export default {
   computed: {
     currentReference() {
       return this.$store.getters['references/getCurrentReferenceId'] !== undefined;
-    },
-    referenceData() {
-      return this.$store.getters['references/reference'];
     },
   },
 };
