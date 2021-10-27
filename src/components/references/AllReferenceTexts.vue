@@ -43,15 +43,15 @@ export default {
       return this.$store.getters['references/reference'];
     },
     getPapyri() {
-      const referenceTexts = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'papyri');
+      const referenceTexts = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'Papyri');
       return this.renderFilteredTextandDate(referenceTexts);
     },
     getUncials() {
-      const referenceTexts = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'uncial');
+      const referenceTexts = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'Uncial');
       return this.renderFilteredTextandDate(referenceTexts);
     },
     getMinuscules() {
-      const referenceTexts = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'minuscule');
+      const referenceTexts = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'Minuscule');
       return this.renderFilteredTextandDate(referenceTexts);
     },
     getLectionaries() {
