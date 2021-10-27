@@ -1,6 +1,5 @@
 <template>
-<div>
-    <base-card>
+<div class="card">
     <section>
         <h2> Select a Reference </h2>
     </section>
@@ -43,7 +42,6 @@
         </div>
         <button :disabled="!book || !chapter || !verse"> Submit </button>
     </form>
-    </base-card>
     </div>
 </template>
 

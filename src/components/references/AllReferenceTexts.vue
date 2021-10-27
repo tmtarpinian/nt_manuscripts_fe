@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="card">
         <table style="width:100%">
             <tr>
                 <th></th>
