@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>{{this.titelize(referenceData.book)}} {{referenceData.chapter}}:{{referenceData.verse}}
+        <h3>{{this.titelize(book)}} {{chapter}}:{{verse}}
         </h3>
         <button @click="previousReferenceClick" :disabled="minimumReferenceId">
           Previous
@@ -14,12 +14,11 @@
 <script>
 
 export default {
+  props: ['book', 'chapter', 'verse'],
+  emits: ['reference-request'],
   computed: {
     currentReferenceId() {
       return this.$store.getters['references/getCurrentReferenceId'];
-    },
-    referenceData() {
-      return this.$store.getters['references/reference'];
     },
     minimumReferenceId() {
       return this.currentReferenceId <= 1;
