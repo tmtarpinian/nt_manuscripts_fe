@@ -39,19 +39,22 @@
 <script>
 
 export default {
+  props: ['version'],
   data() {
     return {
       texts: this.referenceData,
-      NaEdition: 27,
     };
   },
   computed: {
+    currentEdition() {
+      return this.version;
+    },
     referenceData() {
       return this.$store.getters['references/reference'];
     },
     editionSpecificReferences() {
-      const texts = this.referenceData.reference_texts.map((rt) => this.isInEdition(rt));
-      return texts.filter((text) => text !== null);
+      const editionTexts = this.referenceData.reference_texts.map((rt) => this.isInEdition(rt));
+      return editionTexts.filter((text) => text !== null);
     },
     getAlexandrianPapyri() {
       const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Papyri' && rt.nestle_alands.find((na) => na.text_type === 'alexandrian'));
@@ -100,7 +103,7 @@ export default {
   },
   methods: {
     isInEdition(referenceText) {
-      const editionFound = referenceText.nestle_alands.find((na) => na.edition === this.NaEdition);
+      const editionFound = referenceText.nestle_alands.find((na) => na.edition === this.version);
       return editionFound !== undefined ? referenceText : null;
     },
     renderFilteredTextandDate(filteredData) {

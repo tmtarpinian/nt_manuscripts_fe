@@ -8,6 +8,18 @@
         <button @click="nextReferenceClick" :disabled="maximumReferenceId">
           Next
         </button>
+         <button @click="AllTexts" :disabled="minimumReferenceId">
+          All Texts
+        </button>
+        <button @click="triggerVersionChange(28)" :disabled="isCurrentVersion(28)">
+          NA28
+        </button>
+        <button @click="triggerVersionChange(27)" :disabled="isCurrentVersion(27)">
+          NA27
+        </button>
+        <button @click="triggerVersionChange(26)" :disabled="isCurrentVersion(26)">
+          NA26
+        </button>
     </div>
 </template>
 
@@ -15,7 +27,7 @@
 
 export default {
   props: ['book', 'chapter', 'verse'],
-  emits: ['reference-request'],
+  emits: ['change-version'],
   computed: {
     currentReferenceId() {
       return this.$store.getters['references/getCurrentReferenceId'];
@@ -66,6 +78,12 @@ export default {
         return this.$store.dispatch('references/setCurrentReference', newReference.id);
       }
       return this.$store.dispatch('references/loadReferenceById', id);
+    },
+    triggerVersionChange(clickVersion) {
+      this.$emit('change-version', clickVersion);
+    },
+    isCurrentVersion(buttonVersion) {
+      return this.version === buttonVersion;
     },
   },
 };
