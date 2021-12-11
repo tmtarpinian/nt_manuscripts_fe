@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>{{this.titelize(referenceData.book)}} {{referenceData.chapter}}:{{referenceData.verse}}
+        <h3>{{this.titelize(book)}} {{chapter}}:{{verse}}
         </h3>
         <button @click="previousReferenceClick" :disabled="minimumReferenceId">
           Previous
@@ -8,18 +8,29 @@
         <button @click="nextReferenceClick" :disabled="maximumReferenceId">
           Next
         </button>
+         <button @click="AllTexts" :disabled="minimumReferenceId">
+          All Texts
+        </button>
+        <button @click="triggerVersionChange(28)" :disabled="isCurrentVersion(28)">
+          NA28
+        </button>
+        <button @click="triggerVersionChange(27)" :disabled="isCurrentVersion(27)">
+          NA27
+        </button>
+        <button @click="triggerVersionChange(26)" :disabled="isCurrentVersion(26)">
+          NA26
+        </button>
     </div>
 </template>
 
 <script>
 
 export default {
+  props: ['book', 'chapter', 'verse'],
+  emits: ['change-version'],
   computed: {
     currentReferenceId() {
       return this.$store.getters['references/getCurrentReferenceId'];
-    },
-    referenceData() {
-      return this.$store.getters['references/reference'];
     },
     minimumReferenceId() {
       return this.currentReferenceId <= 1;
@@ -67,6 +78,12 @@ export default {
         return this.$store.dispatch('references/setCurrentReference', newReference.id);
       }
       return this.$store.dispatch('references/loadReferenceById', id);
+    },
+    triggerVersionChange(clickVersion) {
+      this.$emit('change-version', clickVersion);
+    },
+    isCurrentVersion(buttonVersion) {
+      return this.version === buttonVersion;
     },
   },
 };

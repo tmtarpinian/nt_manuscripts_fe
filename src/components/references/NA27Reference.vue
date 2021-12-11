@@ -6,49 +6,28 @@
                 <th>Alexandrian</th>
                 <th>Byzantine</th>
                 <th>Western</th>
+                <th>Mixed</th>
                 <th>Other</th>
             </tr>
             <tr>
                 <td>Papyri</td>
-                <td>{{this.getAlexandrianPapyri()}}</td>
-                <td>{{this.getByzantinePapyri()}}</td>
-                <td>{{this.getWesternPapyri()}}</td>
-                <td>{{this.getOtherPapyri()}}</td>
+                <td>{{getAlexandrianPapyri}}</td>
             </tr>
             <tr>
-                <td>Uncials</td>
-                <td>{{this.getAlexandrianUncials()}}</td>
-                <td>{{this.getByzantineUncials()}}</td>
-                <td>{{this.getWesternUncials()}}</td>
-                <td>{{this.getOtherUncials()}}</td>
+              <td>Uncials</td>
+              <td>{{getAlexandrianUncials}}</td>
+              <td>{{getByzantineUncials}}</td>
+              <td>{{getWesternUncials}}</td>
+              <td>{{getMixedUncials}}</td>
+              <td>{{getOtherUncials}}</td>
             </tr>
-             <tr>
-                <td>Minuscules</td>
-                <td>{{this.getAlexandrianMinuscules()}}</td>
-                <td>{{this.getByzantineMinuscules()}}</td>
-                <td>{{this.getWesternMinuscules()}}</td>
-                <td>{{this.getOtherMinuscules()}}</td>
-            </tr>
-             <tr>
-                <td>Lectionaries</td>
-                <td>{{this.getAlexandrianLectionaries()}}</td>
-                <td>{{this.getByzantineLectionaries()}}</td>
-                <td>{{this.getWesternLectionaries()}}</td>
-                <td>{{this.getOtherLectionaries()}}</td>
-            </tr>
-             <tr>
-                <td>Versions</td>
-                <td>{{this.getAlexandrianVersions()}}</td>
-                <td>{{this.getByzantineVersions()}}</td>
-                <td>{{this.getWesternVersions()}}</td>
-                <td>{{this.getOtherVersions()}}</td>
-            </tr>
-             <tr>
-                <td>Fathers</td>
-                <td>{{this.getAlexandrianFathers()}}</td>
-                <td>{{this.getByzantineFathers()}}</td>
-                <td>{{this.getWesternFathers()}}</td>
-                <td>{{this.getOtherFathers()}}</td>
+            <tr>
+              <td>Minuscules</td>
+              <td>{{getAlexandrianMinuscules}}</td>
+              <td>{{getByzantineMinuscules}}</td>
+              <td>{{getWesternMinuscules}}</td>
+              <td>{{getMixedMinuscules}}</td>
+              <td>{{getOtherMinuscules}}</td>
             </tr>
             </table>
          <span><router-link to="245/texts">See all Texts for this Reference</router-link></span>
@@ -60,113 +39,72 @@
 <script>
 
 export default {
+  props: ['version'],
   data() {
     return {
       texts: this.referenceData,
-      NaEdition: 28,
     };
   },
   computed: {
+    currentEdition() {
+      return this.version;
+    },
     referenceData() {
       return this.$store.getters['references/reference'];
     },
-  },
-  methods: {
+    editionSpecificReferences() {
+      const editionTexts = this.referenceData.reference_texts.map((rt) => this.isInEdition(rt));
+      return editionTexts.filter((text) => text !== null);
+    },
     getAlexandrianPapyri() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'papyri' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Alexandrian');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getByzantinePapyri() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'papyri' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Byzantine');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getWesternPapyri() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'papyri' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Western');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getOtherPapyri() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'papyri' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Other');
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Papyri' && rt.nestle_alands.find((na) => na.text_type === 'alexandrian'));
       return this.renderFilteredTextandDate(filteredText);
     },
     getAlexandrianUncials() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'uncial' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Alexandrian');
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Uncial' && rt.nestle_alands.find((na) => na.text_type === 'alexandrian'));
       return this.renderFilteredTextandDate(filteredText);
     },
     getByzantineUncials() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'uncial' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Byzantine');
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Uncial' && rt.nestle_alands.find((na) => na.text_type === 'byzantine'));
       return this.renderFilteredTextandDate(filteredText);
     },
     getWesternUncials() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'uncial' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Western');
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Uncial' && rt.nestle_alands.find((na) => na.text_type === 'western'));
+      return this.renderFilteredTextandDate(filteredText);
+    },
+    getMixedUncials() {
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Uncial' && rt.nestle_alands.find((na) => na.text_type === 'mixed'));
       return this.renderFilteredTextandDate(filteredText);
     },
     getOtherUncials() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'uncial' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Other');
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Uncial' && rt.nestle_alands.find((na) => na.text_type === 'other'));
       return this.renderFilteredTextandDate(filteredText);
     },
     getAlexandrianMinuscules() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'minuscules' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Alexandrian');
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Minuscule' && rt.nestle_alands.find((na) => na.text_type === 'alexandrian'));
       return this.renderFilteredTextandDate(filteredText);
     },
     getByzantineMinuscules() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'minuscules' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Byzantine');
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Minuscule' && rt.nestle_alands.find((na) => na.text_type === 'byzantine'));
       return this.renderFilteredTextandDate(filteredText);
     },
     getWesternMinuscules() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'minuscules' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Western');
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Minuscule' && rt.nestle_alands.find((na) => na.text_type === 'western'));
+      return this.renderFilteredTextandDate(filteredText);
+    },
+    getMixedMinuscules() {
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Minuscule' && rt.nestle_alands.find((na) => na.text_type === 'mixed'));
       return this.renderFilteredTextandDate(filteredText);
     },
     getOtherMinuscules() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'minuscules' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Other');
+      const filteredText = this.editionSpecificReferences.filter((rt) => rt.text.group === 'Minuscule' && rt.nestle_alands.find((na) => na.text_type === 'other'));
       return this.renderFilteredTextandDate(filteredText);
     },
-    getAlexandrianLectionaries() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'lectionaries' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Alexandrian');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getByzantineLectionaries() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'lectionaries' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Byzantine');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getWesternLectionaries() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'lectionaries' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Western');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getOtherLectionaries() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'lectionaries' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Other');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getAlexandrianVersions() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'versions' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Alexandrian');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getByzantineVersions() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'versions' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Byzantine');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getWesternVersions() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'versions' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Western');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getOtherVersions() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'versions' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Other');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getAlexandrianFathers() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'fathers' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Alexandrian');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getByzantineFathers() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'fathers' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Byzantine');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getWesternFathers() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'fathers' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Western');
-      return this.renderFilteredTextandDate(filteredText);
-    },
-    getOtherFathers() {
-      const filteredText = this.referenceData.reference_texts.filter((rt) => rt.text.group === 'fathers' && rt.nestle_alands.filter((na) => na.edition === this.NaEdition)[0].text_type === 'Other');
-      return this.renderFilteredTextandDate(filteredText);
+  },
+  methods: {
+    isInEdition(referenceText) {
+      const editionFound = referenceText.nestle_alands.find((na) => na.edition === this.version);
+      return editionFound !== undefined ? referenceText : null;
     },
     renderFilteredTextandDate(filteredData) {
       return filteredData.length > 0 ? filteredData.map((ft) => `${ft.text.number} (${ft.text.date})`).join(', ') : 'N/A';
