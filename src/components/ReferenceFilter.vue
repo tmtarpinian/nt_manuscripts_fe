@@ -1,6 +1,5 @@
 <template>
-<div>
-    <base-card>
+<div class="card">
     <section>
         <h2> Select a Reference </h2>
     </section>
@@ -43,7 +42,6 @@
         </div>
         <button :disabled="!book || !chapter || !verse"> Submit </button>
     </form>
-    </base-card>
     </div>
 </template>
 
@@ -83,97 +81,8 @@ export default {
         chapter: this.chapter,
         verse: this.verse,
       };
-      this.referenceRequest(formData);
-    },
-    referenceRequest(data) {
-      if (this.$store.getters['references/getCurrentReferenceId'] === undefined) {
-        return this.$store.dispatch('references/loadReference', data);
-      }
-      const newReference = this.$store.getters['references/references'].find((reference) => reference.book === data.book && reference.chapter === parseInt(data.chapter, 10) && reference.verse === parseInt(data.verse, 10));
-      if (newReference !== undefined) {
-        return this.$store.dispatch('references/setCurrentReference', newReference.id);
-      }
-      return this.$store.dispatch('references/loadReference', data);
+      this.$emit('reference-request', formData);
     },
   },
 };
 </script>
-
-<style scoped>
-    .form-control {
-  margin: 0.5rem 0;
-}
-
-label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-input[type='checkbox'] + label {
-  font-weight: normal;
-  display: inline;
-  margin: 0 0 0 0.5rem;
-}
-
-input {
-  display: block;
-  width: 100%;
-  border: 1px solid #ccc;
-  font: inherit;
-}
-
-input:focus {
-  background-color: #f0e6fd;
-  outline: none;
-  border-color: #3d008d;
-}
-
-h3 {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-}
-
-select{
-    text-align: center;
-    padding: 10px ;
-    border-radius: 13px;
-    background-color: #f1f1f1;
-    font: #000000
-}
-
-select:hover {
-  background-color: #f1f1f1;
-  opacity: 0.8;
-}
-
-button {
-    background-color: #9055a2;
-    color: #ffffff;
-    border-radius: 25px;
-    padding: .50rem;
-    margin-top: 1.25rem
-}
-
-button:hover {
-    background-color: #9055a2;
-    opacity: 0.8;
-    color: #ffffff;
-}
-
-.invalid label {
-  color: red;
-}
-
-.invalid input,
-.invalid textarea {
-  border: 1px solid red;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-</style>
